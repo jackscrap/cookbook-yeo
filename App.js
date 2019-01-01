@@ -29,64 +29,6 @@ if (!firebase.apps.length) {
 	);
 }
 
-class DogEar extends React.Component {
-	render() {
-		return (
-			<TouchableOpacity
-				onPress={
-					() => this.props.navigation.navigate(
-						"Landing"
-					)
-				}
-			>
-				<Triangle
-					width={
-						60
-					}
-					height={
-						60
-					}
-					color={
-						"#fff"
-					}
-					direction={
-						"up-left"
-					}
-					style={{
-						position: "absolute"
-					}}
-				/>
-				<Triangle
-					width={
-						60
-					}
-					height={
-						60
-					}
-					color={
-						"#fff"
-					}
-					direction={
-						"down-right"
-					}
-					style={{
-						shadowOffset:{
-							width: 1,
-							height: 1
-						},
-						shadowColor: "#111",
-						shadowOpacity: 0.16,
-
-						position: "absolute",
-						left: 0,
-						top: 0,
-					}}
-				/>
-			</TouchableOpacity>
-		);
-	}
-}
-
 class Head extends React.Component {
 	constructor(props) {
 		super(props);
@@ -205,39 +147,46 @@ class Landing extends React.Component {
 										{c.toUpperCase()}
 									</Text>
 
-									{
-										this.state.recipe.map(
-											(item, k) => {
-												if (item.title[0].toLowerCase() == c) {
-													return (
-														<TouchableOpacity
-															key={k}
-															style={{
-																margin: 8
-															}}
-															onPress={
-																() => this.props.navigation.navigate(
-																	"Recipe",
-																	{
-																		i: k
-																	}
-																)
-															}
-														>
-															<Text
+									{/* fix, remove if none */}
+									<View
+										style={{
+											padding: 4
+										}}
+									>
+										{
+											this.state.recipe.map(
+												(item, k) => {
+													if (item.title[0].toLowerCase() == c) {
+														return (
+															<TouchableOpacity
+																key={k}
 																style={{
-																	fontSize: 26,
-																	color: "#303030"
+																	margin: 8
 																}}
+																onPress={
+																	() => this.props.navigation.navigate(
+																		"Recipe",
+																		{
+																			i: k
+																		}
+																	)
+																}
 															>
-																{item.title}
-															</Text>
-														</TouchableOpacity>
-													);
+																<Text
+																	style={{
+																		fontSize: 26,
+																		color: "#303030"
+																	}}
+																>
+																	{item.title}
+																</Text>
+															</TouchableOpacity>
+														);
+													}
 												}
-											}
-										)
-									}
+											)
+										}
+										</View>
 									</View>
 								);
 							}
@@ -250,6 +199,10 @@ class Landing extends React.Component {
 }
 
 class Recipe extends React.Component {
+	static navigationOptions = {
+		headerLeft: null
+	}
+
 	constructor(props) {
 		super(props);
 
@@ -292,7 +245,64 @@ class Recipe extends React.Component {
 				}}
 			>
 
-			<DogEar />
+			<TouchableOpacity
+				style={{
+					width: 60,
+					height: 60,
+					position: "absolute",
+					zIndex: 1
+				}}
+
+				onPress={
+					() => this.props.navigation.dispatch({
+						type: "Navigation/BACK"
+					})
+				}
+			>
+				<Triangle
+					width={
+						60
+					}
+					height={
+						60
+					}
+					color={
+						"#fff"
+					}
+					direction={
+						"up-left"
+					}
+					style={{
+						position: "absolute"
+					}}
+				/>
+				<Triangle
+					width={
+						60
+					}
+					height={
+						60
+					}
+					color={
+						"#fff"
+					}
+					direction={
+						"down-right"
+					}
+					style={{
+						shadowOffset:{
+							width: 1,
+							height: 1
+						},
+						shadowColor: "#111",
+						shadowOpacity: 0.16,
+
+						position: "absolute",
+						left: 0,
+						top: 0,
+					}}
+				/>
+			</TouchableOpacity>
 
 			<View>
 				<Text
