@@ -35,56 +35,53 @@ class DogEar extends React.Component {
 			<TouchableOpacity
 				onPress={
 					() => this.props.navigation.navigate(
-						"Recipe",
-						{
-							i: k
-						}
+						"Landing"
 					)
 				}
 			>
-			<Triangle
-				width={
-					60
-				}
-				height={
-					60
-				}
-				color={
-					"#fff"
-				}
-				direction={
-					"up-left"
-				}
-				style={{
-					position: "absolute"
-				}}
-			/>
-			<Triangle
-				width={
-					60
-				}
-				height={
-					60
-				}
-				color={
-					"#fff"
-				}
-				direction={
-					"down-right"
-				}
-				style={{
-					shadowOffset:{
-						width: 1,
-						height: 1
-					},
-					shadowColor: "#111",
-					shadowOpacity: 0.16,
+				<Triangle
+					width={
+						60
+					}
+					height={
+						60
+					}
+					color={
+						"#fff"
+					}
+					direction={
+						"up-left"
+					}
+					style={{
+						position: "absolute"
+					}}
+				/>
+				<Triangle
+					width={
+						60
+					}
+					height={
+						60
+					}
+					color={
+						"#fff"
+					}
+					direction={
+						"down-right"
+					}
+					style={{
+						shadowOffset:{
+							width: 1,
+							height: 1
+						},
+						shadowColor: "#111",
+						shadowOpacity: 0.16,
 
-					position: "absolute",
-					left: 0,
-					top: 0,
-				}}
-			/>
+						position: "absolute",
+						left: 0,
+						top: 0,
+					}}
+				/>
 			</TouchableOpacity>
 		);
 	}
@@ -176,7 +173,7 @@ class Landing extends React.Component {
 					borderWidth: 26,
 					borderColor: "#303030",
 
-					// shadowOffset:{
+					// shadowOffset: {
 					// 	width: 40,
 					// 	height: 40
 					// },
@@ -207,6 +204,7 @@ class Landing extends React.Component {
 									>
 										{c.toUpperCase()}
 									</Text>
+
 									{
 										this.state.recipe.map(
 											(item, k) => {
@@ -296,10 +294,7 @@ class Recipe extends React.Component {
 
 			<DogEar />
 
-			<View
-				style={{
-				}}
-			>
+			<View>
 				<Text
 					style={{
 						fontSize: 100,
@@ -340,6 +335,36 @@ class Recipe extends React.Component {
 							this.state.recipe[this.state.i] != undefined ? this.state.recipe[this.state.i].title : "..."
 						}
 					</Text>
+
+					<Text
+						style={{
+							fontSize: 26,
+							color: "#303030"
+						}}
+					>
+						Ingredients:
+					</Text>
+					<View
+						style={{
+							fontSize: 16,
+							color: "#303030"
+						}}
+					>
+						{
+							this.state.recipe[this.state.i] != undefined ? this.state.recipe[this.state.i].ingredient.map(
+								(item, k) => {
+									return (
+										<Text
+											key={k}
+										>
+											{item}
+										</Text>
+									)
+								}
+							)
+							: <Text>...</Text>
+						}
+					</View>
 
 					<Text
 						style={{
