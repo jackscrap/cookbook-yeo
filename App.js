@@ -338,36 +338,6 @@ class Recipe extends React.Component {
 
 					<Text
 						style={{
-							fontSize: 26,
-							color: "#303030"
-						}}
-					>
-						Ingredients:
-					</Text>
-					<View
-						style={{
-							fontSize: 16,
-							color: "#303030"
-						}}
-					>
-						{
-							this.state.recipe[this.state.i] != undefined ? this.state.recipe[this.state.i].ingredient.map(
-								(item, k) => {
-									return (
-										<Text
-											key={k}
-										>
-											{item}
-										</Text>
-									)
-								}
-							)
-							: <Text>...</Text>
-						}
-					</View>
-
-					<Text
-						style={{
 							fontSize: 16,
 							color: "#303030"
 						}}
@@ -376,6 +346,40 @@ class Recipe extends React.Component {
 							this.state.recipe[this.state.i] != undefined ? this.state.recipe[this.state.i].author : "..."
 						}
 					</Text>
+				</View>
+
+				<View
+					style={{
+						padding: 10
+					}}
+				>
+
+					<Text
+						style={{
+							fontSize: 26,
+							color: "#303030"
+						}}
+					>
+						Ingredients
+					</Text>
+					{
+						this.state.recipe[this.state.i] != undefined ? this.state.recipe[this.state.i].ingredient.map(
+							(item, k) => {
+								return (
+									<Text
+										key={k}
+
+										// style={{
+										// 	fontSize: 16,
+										// }}
+									>
+										{item}
+									</Text>
+								)
+							}
+						)
+						: <Text>...</Text>
+					}
 				</View>
 			</View>
 
@@ -388,7 +392,8 @@ class Recipe extends React.Component {
 				<ScrollView
 					style={{
 						padding: 8,
-						height: "100%"
+						height: "100%",
+						width: "60%"
 					}}
 				>
 					{
