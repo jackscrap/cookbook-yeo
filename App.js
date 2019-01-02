@@ -221,6 +221,7 @@ class Recipe extends React.Component {
             position: "absolute",
             zIndex: 1
           }}
+
           onPress={() =>
             this.props.navigation.dispatch({
               type: "Navigation/BACK"
@@ -230,8 +231,8 @@ class Recipe extends React.Component {
           <Triangle
             width={60}
             height={60}
-            color={"#fff"}
-            direction={"up-left"}
+            color="#fff"
+            direction="up-left"
             style={{
               position: "absolute"
             }}
@@ -239,8 +240,8 @@ class Recipe extends React.Component {
           <Triangle
             width={60}
             height={60}
-            color={"#fff"}
-            direction={"down-right"}
+            color="#fff"
+            direction="down-right"
             style={{
               shadowOffset: {
                 width: 1,
@@ -277,18 +278,12 @@ class Recipe extends React.Component {
           }}
         />
 
-				{/*
-					<NestedScrollView>
-					</NestedScrollView>
-				*/}
-
         <ScrollView
 					style={{
 						height: 0
 					}}
 				>
           <View
-            id="head"
             style={{
               padding: 8
             }}
@@ -300,7 +295,7 @@ class Recipe extends React.Component {
             >
               <Text
                 style={{
-                  fontSize: 26,
+                  fontSize: 40,
                   color: "#303030"
                 }}
               >
@@ -311,7 +306,7 @@ class Recipe extends React.Component {
 
               <Text
                 style={{
-                  fontSize: 16,
+                  fontSize: 26,
                   color: "#303030"
                 }}
               >
@@ -329,32 +324,65 @@ class Recipe extends React.Component {
               <Text
                 style={{
                   fontSize: 26,
+                }}
+              >
+                Notes
+              </Text>
+
+              {
+								this.state.recipe[this.state.i] != undefined ? (
+									this.state.recipe[this.state.i].note.map((item, k) => {
+										return (
+											<Text
+												key={k}
+											>
+												{item}
+											</Text>
+										);
+									})
+								) : (
+									<Text>...</Text>
+								)
+							}
+						</View>
+
+            <View
+              style={{
+                padding: 8
+              }}
+            >
+              <Text
+                style={{
+                  fontSize: 26,
                   color: "#303030"
                 }}
               >
                 Ingredients
               </Text>
-              {this.state.recipe[this.state.i] != undefined ? (
-                this.state.recipe[this.state.i].ingredient.map((item, k) => {
-                  return (
-                    <Text
-                      key={k}
-											style={{
-												paddingLeft: 8
-											}}
-                    >
-                      {`\u2022 ${item}`}
-                    </Text>
-                  );
-                })
-              ) : (
-                <Text>...</Text>
-              )}
-            </View>
-          </View>
+
+              {
+								this.state.recipe[this.state.i] != undefined ? (
+									this.state.recipe[this.state.i].ingredient.map((item, k) => {
+										return (
+											<Text
+												key={k}
+
+												style={{
+													paddingLeft: 8
+												}}
+											>
+												{`\u2022 ${item}`}
+											</Text>
+										);
+									})
+								) : (
+									<Text>...</Text>
+								)
+							}
+						</View>
+					</View>
 
           <View
-            id="body"
             style={{
               flex: 1,
               flexDirection: "row"
