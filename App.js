@@ -2,11 +2,14 @@ import React from "react";
 import {
   Button,
   Text,
+	TextInput,
   View,
   SafeAreaView,
   ScrollView,
   NestedScrollView,
-  TouchableOpacity
+  TouchableOpacity,
+
+	StyleSheet
 } from "react-native";
 import { createStackNavigator, createAppContainer } from "react-navigation";
 
@@ -23,6 +26,165 @@ if (!firebase.apps.length) {
     storageBucket: "cookbook-1a91d.appspot.com",
     messagingSenderId: "1083763890339"
   });
+}
+
+class SignUp extends React.Component {
+	state = {
+		email: '',
+		password: '',
+		errorMessage: null
+	};
+
+	handleSignUp = () => {
+		firebase
+      .auth()
+      .createUserWithEmailAndPassword(this.state.email, this.state.password)
+      .then(() => this.props.navigation.navigate("Landing"))
+      .catch(error => this.setState({ errorMessage: error.message }))
+	}
+
+	constructor(props) {
+		super(props);
+	}
+
+	render() {
+		const styles = StyleSheet.create({
+			container: {
+				flex: 1,
+				justifyContent: 'center',
+				alignItems: 'center'
+			},
+			textInput: {
+				height: 40,
+				width: '90%',
+				borderColor: 'gray',
+				borderWidth: 1,
+				marginTop: 8
+			}
+		});
+
+		return (
+			<View style={styles.container}>
+        <Text>Sign Up</Text>
+        {this.state.errorMessage &&
+          <Text style={{ color: 'red' }}>
+            {this.state.errorMessage}
+          </Text>}
+        <TextInput
+          placeholder="Email"
+          autoCapitalize="none"
+          style={styles.textInput}
+          onChangeText={email => this.setState({ email })}
+          value={this.state.email}
+        />
+        <TextInput
+          secureTextEntry
+          placeholder="Password"
+          autoCapitalize="none"
+          style={styles.textInput}
+          onChangeText={password => this.setState({ password })}
+          value={this.state.password}
+        />
+        <Button title="Sign Up" onPress={this.handleSignUp} />
+        <Button
+          title="Already have an account? Login"
+					onPress={() => {
+						this.props.navigation.navigate("LogIn")}
+					}
+        />
+      </View>
+		);
+	}
+}
+
+class LogIn extends React.Component {
+	state = {
+		email: "",
+		password: "",
+		errorMessage: null
+	}
+
+  handleLogin = () => {
+		const {
+			email,
+			password
+		} = this.state
+
+    firebase
+      .auth()
+			.signInWithEmailAndPassword(
+				email,
+				password
+			)
+      .then(() => this.props.navigation.navigate("Landing"))
+			.catch(error => this.setState({
+				errorMessage: error.message
+			}));
+  }
+
+  render() {
+		const styles = StyleSheet.create({
+			container: {
+				flex: 1,
+				justifyContent: 'center',
+				alignItems: 'center'
+			},
+			textInput: {
+				height: 40,
+				width: '90%',
+				borderColor: 'gray',
+				borderWidth: 1,
+				marginTop: 8
+			}
+		});
+
+    return (
+			<View style={
+				styles.container
+			}>
+        <Text>Log In</Text>
+        {this.state.errorMessage &&
+          <Text style={{ color: 'red' }}>
+            {this.state.errorMessage}
+          </Text>}
+
+        <TextInput
+          style={styles.textInput}
+          autoCapitalize="none"
+          placeholder="Email"
+          onChangeText={email => this.setState({ email })}
+          value={
+						this.state.email
+					}
+        />
+
+        <TextInput
+          secureTextEntry
+          style={styles.textInput}
+          autoCapitalize="none"
+          placeholder="Password"
+          onChangeText={password => this.setState({ password })}
+          value={
+						this.state.password
+					}
+        />
+
+        <Button
+					title="Log In"
+					onPress={
+						this.handleLogin
+					}
+				/>
+
+        <Button
+          title="Don't have an account? Sign Up"
+          onPress={
+						() => this.props.navigation.navigate("SignUp")
+					}
+        />
+      </View>
+    )
+  }
 }
 
 class Head extends React.Component {
@@ -46,6 +208,16 @@ class Head extends React.Component {
             A
           </Text>
         </View>
+
+        <View
+          style={{
+            borderBottomColor: "#303030",
+            borderBottomWidth: 6,
+            marginLeft: 16,
+            marginRight: 16,
+            marginBottom: 16
+          }}
+        />
 
         <View
           style={{
@@ -80,6 +252,12 @@ class Landing extends React.Component {
         recipe: snap.val()
       });
     });
+
+		firebase.auth().onAuthStateChanged(user => {
+			this.setState({
+				user: user
+			});
+		});
   }
 
   alphabet() {
@@ -102,16 +280,58 @@ class Landing extends React.Component {
           flex: 1,
           borderWidth: 26,
           borderColor: "#303030"
-
-          // shadowOffset: {
-          // 	width: 40,
-          // 	height: 40
-          // },
-          // shadowColor: "red",
-          // shadowOpacity: 0.16,
         }}
       >
+				<View
+				>
+					<Text
+						style={{
+						fontSize: 16
+						}}
+					>
+						{
+							this.state.user ? this.state.user.email : "asdf"
+						}
+					</Text>
+					<TouchableOpacity
+					>
+						<Text
+							style={{
+							fontSize: 16
+							}}
+						>
+							Log Out
+						</Text>
+					</TouchableOpacity>
+				</View>
+
         <Head />
+
+				<View>
+					<TouchableOpacity
+						onPress={
+							() => this.props.navigation.navigate(
+								"SignUp"
+							)
+						}
+					>
+						<Text>
+							Sign Up
+						</Text>
+					</TouchableOpacity>
+
+					<TouchableOpacity
+						onPress={
+							() => this.props.navigation.navigate(
+								"SignIn"
+							)
+						}
+					>
+						<Text>
+							Log In
+						</Text>
+					</TouchableOpacity>
+				</View>
 
         <ScrollView>
           {this.alphabet().map((c, k) => {
@@ -498,7 +718,9 @@ class Recipe extends React.Component {
 const Nav = createStackNavigator(
   {
     Landing: Landing,
-    Recipe: Recipe
+    Recipe: Recipe,
+		SignUp: SignUp,
+		LogIn: LogIn
   },
   {}
 );
