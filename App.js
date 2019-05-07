@@ -3,20 +3,18 @@ import {
 	createStackNavigator,
 	createAppContainer
 } from "react-navigation";
-import Orientation from "react-native-orientation";
+// import Orientation from "react-native-orientation";
 
-// import {
-// 	ScreenOrientation
-// } from "expo";
+import {
+	ScreenOrientation
+} from "expo";
 
 import * as firebase from "firebase";
 
-import Head from "./head";
-import UserHead from "./userHead";
 import Landing from "./landing";
+import Recipe from "./recipe";
 import SignUp from "./signUp";
 import LogIn from "./logIn";
-import Recipe from "./recipe";
 import Profile from "./profile";
 
 import auth from "./auth";
@@ -41,11 +39,10 @@ const Cont = createAppContainer(Nav);
 
 export default class App extends React.Component {
 	componentDidMount() {
-		// const initial = Orientation.getInitialOrientation();
+		// ScreenOrientation.allowAsync(ScreenOrientation.Orientation.LANDSCAPE);
 	}
 
 	componentWillUnmount() {
-		// Orientation.removeOrientationListener(this._orientationDidChange)
 	}
 
   render() {

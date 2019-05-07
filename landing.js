@@ -11,7 +11,7 @@ import {
 } from "react-native";
 
 import Head from "./head";
-import UserHead from "./userHead";
+import Ctrl from "./ctrl";
 
 import Hr from "./hr";
 
@@ -71,7 +71,7 @@ export default class Landing extends React.Component {
 
 				<Hr />
 
-				<UserHead
+				<Ctrl
 					user={this.state.user}
 					navigation={this.props.navigation}
 				/>

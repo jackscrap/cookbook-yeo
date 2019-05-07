@@ -21,7 +21,7 @@ import SignUp from "./signUp";
 import LogIn from "./logIn";
 import Profile from "./profile";
 
-export default class UserHead extends React.Component {
+export default class Ctrl extends React.Component {
 	constructor(
 		props
 	) {
@@ -59,7 +59,7 @@ export default class UserHead extends React.Component {
 						<Text
 							style={{
 								fontSize: 16,
-								padding: 8
+								margin: 8
 							}}
 						>
 							{this.props.user.email}
@@ -67,16 +67,16 @@ export default class UserHead extends React.Component {
 					</TouchableOpacity>
 
 					<TouchableOpacity
+						style={{
+							margin: 8,
+							fontSize: 16,
+							marginLeft: "auto"
+						}}
 						onPress={
 							this.handleSignOut
 						}
 					>
-						<Text
-							style={{
-								fontSize: 16,
-								padding: 8
-							}}
-						>
+						<Text>
 							Log Out
 						</Text>
 					</TouchableOpacity>
@@ -87,7 +87,7 @@ export default class UserHead extends React.Component {
 				<View
 					style={{
 						flexDirection: "row",
-						padding: 8
+						margin: 8
 					}}
 				>
 					<TouchableOpacity
@@ -108,6 +108,7 @@ export default class UserHead extends React.Component {
 					<TouchableOpacity
 						style={{
 							margin: 8,
+							fontSize: 16,
 							marginLeft: "auto"
 						}}
 						onPress={

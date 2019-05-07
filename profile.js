@@ -1,13 +1,14 @@
 import React from "react";
 import {
-  SafeAreaView,
 	View,
+  SafeAreaView,
+	ScrollView,
 	Text,
 	TouchableOpacity
 } from "react-native";
 
 import Head from "./head";
-import UserHead from "./userHead";
+import Ctrl from "./ctrl";
 
 import Triangle from "react-native-triangle";
 
@@ -105,14 +106,18 @@ export default class Profile extends React.Component {
 
 				<Hr />
 
-				<UserHead
+				<Ctrl
 					user={this.state.user}
 					navigation={this.props.navigation}
 				/>
 
 				<Hr />
 
-				<View>
+				<View
+					style={{
+						"margin": 8
+					}}
+				>
 					{
 						this.state.recipe.map(
 							(item, k) => {
