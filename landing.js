@@ -1,7 +1,5 @@
 import React from "react";
 
-import * as firebase from "firebase";
-
 import {
   View,
   SafeAreaView,
@@ -14,6 +12,10 @@ import {
 
 import Head from "./head";
 import UserHead from "./userHead";
+
+import Hr from "./hr";
+
+import * as firebase from "firebase";
 
 export default class Landing extends React.Component {
   constructor() {
@@ -67,30 +69,14 @@ export default class Landing extends React.Component {
       >
         <Head />
 
-        <View
-          style={{
-            borderBottomColor: "#303030",
-            borderBottomWidth: 6,
-            marginLeft: 16,
-            marginRight: 16,
-            marginBottom: 16
-          }}
-        />
+				<Hr />
 
 				<UserHead
 					user={this.state.user}
 					navigation={this.props.navigation}
 				/>
 
-        <View
-          style={{
-            borderBottomColor: "#303030",
-            borderBottomWidth: 6,
-            marginLeft: 16,
-            marginRight: 16,
-            marginBottom: 16
-          }}
-        />
+				<Hr />
 
         <ScrollView>
           {this.alphabet().map((c, k) => {

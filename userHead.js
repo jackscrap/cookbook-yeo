@@ -19,18 +19,7 @@ import Landing from "./landing";
 import Recipe from "./recipe";
 import SignUp from "./signUp";
 import LogIn from "./logIn";
-
-const Nav = createStackNavigator(
-  {
-    Landing: Landing,
-    Recipe: Recipe,
-		SignUp: SignUp,
-		LogIn: LogIn
-  },
-  {}
-);
-
-const Cont = createAppContainer(Nav);
+import Profile from "./profile";
 
 export default class UserHead extends React.Component {
 	constructor(
@@ -60,14 +49,22 @@ export default class UserHead extends React.Component {
 						flexDirection: "row"
 					}}
 				>
-					<Text
-						style={{
-							fontSize: 16,
-							padding: 8
-						}}
+					<TouchableOpacity
+						onPress={
+							() => this.props.navigation.navigate(
+								"Profile"
+							)
+						}
 					>
-						{this.props.user.email}
-					</Text>
+						<Text
+							style={{
+								fontSize: 16,
+								padding: 8
+							}}
+						>
+							{this.props.user.email}
+						</Text>
+					</TouchableOpacity>
 
 					<TouchableOpacity
 						onPress={

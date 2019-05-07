@@ -4,6 +4,9 @@ import {
 	View,
 	Text
 } from "react-native";
+
+import Hr from "./hr";
+
 export default class Head extends React.Component {
   constructor(props) {
     super(props);

@@ -1,17 +1,5 @@
 import React from "react";
 import {
-  Button,
-  Text,
-	TextInput,
-  View,
-  SafeAreaView,
-  ScrollView,
-  NestedScrollView,
-  TouchableOpacity,
-
-	StyleSheet
-} from "react-native";
-import {
 	createStackNavigator,
 	createAppContainer
 } from "react-navigation";
@@ -31,6 +19,7 @@ import Landing from "./landing";
 import SignUp from "./signUp";
 import LogIn from "./logIn";
 import Recipe from "./recipe";
+import Profile from "./profile";
 
 import auth from "./auth";
 
@@ -45,7 +34,8 @@ const Nav = createStackNavigator(
     Landing: Landing,
     Recipe: Recipe,
 		SignUp: SignUp,
-		LogIn: LogIn
+		LogIn: LogIn,
+		Profile: Profile
   }, {}
 );
 
