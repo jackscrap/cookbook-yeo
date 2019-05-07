@@ -38,20 +38,27 @@ export default class Landing extends React.Component {
       });
     });
 
-		firebase.auth().onAuthStateChanged(user => {
-			this.setState({
-				user: user
-			});
-		});
+		firebase.auth().onAuthStateChanged(
+			(user) => {
+				this.setState({
+					user: user
+				});
+			}
+		);
   }
 
   alphabet() {
-    var c = [],
+    let
+			c = [],
       i = "a".charCodeAt(0);
 
     const j = "z".charCodeAt(0);
 
-    for (; i <= j; ++i) {
+    for (
+			;
+			i <= j;
+			++i
+		) {
       c.push(String.fromCharCode(i));
     }
 
@@ -59,6 +66,11 @@ export default class Landing extends React.Component {
   }
 
   render() {
+		let arr = [];
+		for (let key in this.state.recipe) {
+			arr.push(this.state.recipe[key]);
+		}
+
     return (
       <SafeAreaView
         style={{
@@ -79,60 +91,65 @@ export default class Landing extends React.Component {
 				<Hr />
 
         <ScrollView>
-          {this.alphabet().map((c, k) => {
-            return (
-              <View
-                key={k}
-                style={{
-                  padding: 8
-                }}
-              >
-                <Text
-                  style={{
-                    margin: 8,
-                    fontSize: 60,
-                    color: "#303030"
-                  }}
-                >
-                  {c.toUpperCase()}
-                </Text>
+          {
+						this.alphabet().map((c, k) => {
+							return (
+								<View
+									key={k}
+									style={{
+										padding: 8
+									}}
+								>
+									<Text
+										style={{
+											margin: 8,
+											fontSize: 60,
+											color: "#303030"
+										}}
+									>
+										{c.toUpperCase()}
+									</Text>
 
-                <View>
-                  {
-										this.state.recipe.map(
-											(item, k) => {
-												if (item.title[0].toLowerCase() == c) {
-													return (
-														<TouchableOpacity
-															key={k}
-															style={{
-																padding: 4,
-																margin: 8
-															}}
-															onPress={() =>
-																this.props.navigation.navigate("Recipe", {
-																	i: k
-																})
-															}
-														>
-															<Text
+									<View>
+										{
+											arr.map(
+												(
+													item,
+													k
+												) => {
+													if (item.title[0].toLowerCase() == c) {
+														return (
+															<TouchableOpacity
+																key={k}
 																style={{
-																	fontSize: 26,
-																	color: "#303030"
+																	padding: 4,
+																	margin: 8
 																}}
+																onPress={() =>
+																	this.props.navigation.navigate("Recipe", {
+																		i: k
+																	})
+																}
 															>
-																{item.title}
-															</Text>
-														</TouchableOpacity>
-													);
+																<Text
+																	style={{
+																		fontSize: 26,
+																		color: "#303030"
+																	}}
+																>
+																	{item.title}
+																</Text>
+															</TouchableOpacity>
+														);
+													}
 												}
-											}
-										)
-									}
-                </View>
-              </View>
-            );
-          })}
+											)
+										}
+									</View>
+								</View>
+							);
+          	})
+					}
         </ScrollView>
       </SafeAreaView>
     );

@@ -20,6 +20,7 @@ import Recipe from "./recipe";
 import SignUp from "./signUp";
 import LogIn from "./logIn";
 import Profile from "./profile";
+import Hr from "./hr";
 
 export default class Ctrl extends React.Component {
 	constructor(
@@ -43,43 +44,76 @@ export default class Ctrl extends React.Component {
 	render() {
 		if (this.props.user) {
 			return (
-				<View
-					style={{
-						padding: 8,
-						flexDirection: "row"
-					}}
-				>
-					<TouchableOpacity
-						onPress={
-							() => this.props.navigation.navigate(
-								"Profile"
-							)
-						}
-					>
-						<Text
-							style={{
-								fontSize: 16,
-								margin: 8
-							}}
-						>
-							{this.props.user.email}
-						</Text>
-					</TouchableOpacity>
-
-					<TouchableOpacity
+				<View>
+					<View
 						style={{
-							margin: 8,
-							fontSize: 16,
-							marginLeft: "auto"
+							padding: 8,
+							flexDirection: "row"
 						}}
-						onPress={
-							this.handleSignOut
-						}
 					>
-						<Text>
-							Log Out
-						</Text>
-					</TouchableOpacity>
+						<TouchableOpacity
+							onPress={
+								() => this.props.navigation.navigate(
+									"Profile"
+								)
+							}
+						>
+							<Text
+								style={{
+									fontSize: 16,
+									margin: 8
+								}}
+							>
+								{this.props.user.email}
+							</Text>
+						</TouchableOpacity>
+					</View>
+
+					<Hr />
+
+					<View
+						style={{
+							margin: 8
+						}}
+					>
+						<TouchableOpacity
+							style={{
+								margin: 8,
+								fontSize: 16
+							}}
+							onPress={
+								this.handleSignOut
+							}
+						>
+							<Text>
+								Log Out
+							</Text>
+						</TouchableOpacity>
+					</View>
+
+					<Hr />
+
+					<View
+						style={{
+							margin: 8
+						}}
+					>
+						<TouchableOpacity
+							style={{
+								margin: 8,
+								fontSize: 16
+							}}
+							onPress={
+								() => this.props.navigation.navigate(
+									"New"
+								)
+							}
+						>
+							<Text>
+								New
+							</Text>
+						</TouchableOpacity>
+					</View>
 				</View>
 			);
 		} else {

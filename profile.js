@@ -108,8 +108,7 @@ export default class Profile extends React.Component {
 
 				<View
 					style={{
-						padding: 8,
-						flexDirection: "row"
+						padding: 8
 					}}
 				>
 					<TouchableOpacity
@@ -125,7 +124,7 @@ export default class Profile extends React.Component {
 								margin: 8
 							}}
 						>
-						jackhasakeyboard
+							{this.props.user.email}
 						</Text>
 					</TouchableOpacity>
 				</View>
@@ -141,7 +140,7 @@ export default class Profile extends React.Component {
 
 				<View
 					style={{
-						"margin": 8
+						margin: 8
 					}}
 				>
 					{
