@@ -12,8 +12,8 @@ import * as firebase from "firebase";
 
 export default class SignIn extends React.Component {
 	state = {
-		email: '',
-		password: '',
+		email: "",
+		password: "",
 		errorMessage: null
 	};
 
