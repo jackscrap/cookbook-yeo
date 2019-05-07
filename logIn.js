@@ -4,18 +4,32 @@ import {
 	Text,
 	TextInput,
 	Button,
+	SafeAreaView,
+	TouchableOpacity,
 
 	StyleSheet
 } from "react-native";
 
 import * as firebase from "firebase";
 
+import Head from "./head";
+import Hr from "./hr";
+import DogEar from "./dogEar";
+
 export default class SignIn extends React.Component {
+	constructor(props) {
+		super(props);
+	}
+
 	state = {
 		email: "",
 		password: "",
 		errorMessage: null
 	};
+
+  static navigationOptions = {
+    headerLeft: null
+  };
 
 	handleLogIn = () => {
 		const {
@@ -35,57 +49,105 @@ export default class SignIn extends React.Component {
 			}));
 	}
 
-	constructor(props) {
-		super(props);
-	}
-
 	render() {
 		const styles = StyleSheet.create({
-			container: {
-				flex: 1,
-				justifyContent: 'center',
-				alignItems: 'center'
-			},
 			textInput: {
+				padding: 8,
+				margin: 8,
 				height: 40,
-				width: '90%',
-				borderColor: 'gray',
-				borderWidth: 1,
-				marginTop: 8
+				borderBottomWidth: 6,
+				borderColor: "#303030"
 			}
 		});
 
 		return (
-			<View
-				style={styles.container}
+			<SafeAreaView
+        style={{
+          flex: 1,
+          borderWidth: 26,
+          borderColor: "#303030"
+        }}
 			>
-        <Text>Log In</Text>
-        {
-					this.state.errorMessage &&
-          <Text
-						style={{ color: 'red' }}
+				<DogEar
+					navigation={this.props.navigation}
+				/>
+
+				<Head />
+
+				<Hr />
+
+				<View
+					style={{
+						padding: 8
+					}}
+				>
+					<Text
+						style={{
+							margin: 8,
+							fontSize: 26
+						}}
 					>
-            {this.state.errorMessage}
-          </Text>
+						Log In
+					</Text>
+				</View>
+        
+				{
+					this.state.errorMessage && <Text style={{
+							margin: 8,
+							padding: 8,
+							color: "red"
+						}}
+					>
+						{this.state.errorMessage}
+					</Text>
 				}
 
-        <TextInput
-          placeholder="Email"
-          autoCapitalize="none"
-          style={styles.textInput}
-          onChangeText={email => this.setState({ email })}
-          value={this.state.email}
-        />
-        <TextInput
-          secureTextEntry
-          placeholder="Password"
-          autoCapitalize="none"
-          style={styles.textInput}
-          onChangeText={password => this.setState({ password })}
-          value={this.state.password}
-        />
-        <Button title="Log In" onPress={this.handleLogIn} />
-      </View>
+				<View
+					style={{
+						margin: 8
+					}}
+				>
+					<TextInput
+						placeholder="Email"
+						autoCapitalize="none"
+						style={
+							styles.textInput
+						}
+						onChangeText={email => this.setState({ email })}
+						value={this.state.email}
+					/>
+
+					<TextInput
+						secureTextEntry
+						placeholder="Password"
+						autoCapitalize="none"
+						style={
+							styles.textInput
+						}
+						onChangeText={
+							password => this.setState({
+								password
+							})
+						}
+						value={this.state.password}
+					/>
+				</View>
+
+        <TouchableOpacity
+					style={{
+						margin: 8,
+						padding: 8,
+						width: "auto"
+					}}
+					onPress={
+						this.handleLogIn
+					}
+				>
+					<Text>
+						Enter
+					</Text>
+        </TouchableOpacity>
+      </SafeAreaView>
 		);
 	}
 }

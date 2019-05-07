@@ -4,18 +4,34 @@ import {
 	Text,
 	TextInput,
 	Button,
+	TouchableOpacity,
+	SafeAreaView,
 
 	StyleSheet
 } from "react-native";
 
 import * as firebase from "firebase";
 
+import Head from "./head";
+import Hr from "./hr";
+import DogEar from "./dogEar";
+
+import Triangle from "react-native-triangle";
+
 export default class SignUp extends React.Component {
+	constructor(props) {
+		super(props);
+	}
+
 	state = {
-		email: '',
-		password: '',
+		email: "",
+		password: "",
 		errorMessage: null
 	};
+
+  static navigationOptions = {
+    headerLeft: null
+  };
 
 	handleSignUp = () => {
 		firebase
@@ -25,57 +41,112 @@ export default class SignUp extends React.Component {
       .catch(error => this.setState({ errorMessage: error.message }))
 	}
 
-	constructor(props) {
-		super(props);
-	}
-
 	render() {
 		const styles = StyleSheet.create({
-			container: {
-				flex: 1,
-				justifyContent: 'center',
-				alignItems: 'center'
-			},
 			textInput: {
+				padding: 8,
+				margin: 8,
 				height: 40,
-				width: '90%',
-				borderColor: 'gray',
-				borderWidth: 1,
-				marginTop: 8
+				borderBottomWidth: 6,
+				borderColor: "#303030"
 			}
 		});
 
 		return (
-			<View style={styles.container}>
-        <Text>Sign Up</Text>
-        {this.state.errorMessage &&
-          <Text style={{ color: "red" }}>
-            {this.state.errorMessage}
-          </Text>}
-        <TextInput
-          placeholder="E-mail"
-          autoCapitalize="none"
-          style={styles.textInput}
-          onChangeText={email => this.setState({ email })}
-          value={this.state.email}
-        />
-        <TextInput
-          secureTextEntry
-          placeholder="Password"
-          autoCapitalize="none"
-          style={styles.textInput}
-          onChangeText={password => this.setState({ password })}
-          value={this.state.password}
-        />
-        <Button title="Sign In" onPress={this.handleSignUp} />
+      <SafeAreaView
+        style={{
+          flex: 1,
+          borderWidth: 26,
+          borderColor: "#303030"
+        }}
+      >
+				<DogEar
+					navigation={this.props.navigation}
+				/>
 
-        <Button
-          title="Already have an account? Login"
-					onPress={() => {
-						this.props.navigation.navigate("LogIn")}
+				<Head />
+
+				<Hr />
+
+				<View
+					style={{
+						padding: 8
+					}}
+				>
+					<Text
+						style={{
+							margin: 8,
+							fontSize: 26
+						}}
+					>
+						Sign Up
+					</Text>
+				</View>
+
+				{
+					this.state.errorMessage && <Text style={{
+							margin: 8,
+							padding: 8,
+							color: "red"
+						}}
+					>
+						{this.state.errorMessage}
+					</Text>
+				}
+
+				<View
+					style={{
+						margin: 8
+					}}
+				>
+					<TextInput
+						placeholder="Email"
+						autoCapitalize="none"
+						style={
+							styles.textInput
+						}
+						onChangeText={
+							email => this.setState({
+								email
+							})
+						}
+						value={
+							this.state.email
+						}
+					/>
+
+					<TextInput
+						secureTextEntry
+						placeholder="Password"
+						autoCapitalize="none"
+						style={
+							styles.textInput
+						}
+						onChangeText={
+							password => this.setState({
+								password
+							})
+						}
+						value={
+							this.state.password
+						}
+					/>
+				</View>
+
+        <TouchableOpacity
+					style={{
+						margin: 8,
+						padding: 8
+					}}
+					onPress={
+						this.handleSignUp
 					}
-        />
-      </View>
+				>
+					<Text>
+						Enter
+					</Text>
+        </TouchableOpacity>
+      </SafeAreaView>
 		);
 	}
 }

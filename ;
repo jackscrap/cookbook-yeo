@@ -106,31 +106,11 @@ export default class Profile extends React.Component {
 
 				<Hr />
 
-				<View
-					style={{
-						padding: 8,
-						flexDirection: "row"
-					}}
-				>
-					<TouchableOpacity
-						onPress={
-							() => this.props.navigation.navigate(
-								"Profile"
-							)
-						}
-					>
-						<Text
-							style={{
-								fontSize: 16,
-								margin: 8
-							}}
-						>
-						jackhasakeyboard
-						</Text>
-					</TouchableOpacity>
+				<View>
+					<Text>
+						asdflol
+					</Text>
 				</View>
-
-				<Hr />
 
 				<Ctrl
 					user={this.state.user}
