@@ -91,7 +91,6 @@ export default class Landing extends React.Component {
                   style={{
                     margin: 8,
                     fontSize: 60,
-                    // fontWeight: "bold",
                     color: "#303030"
                   }}
                 >

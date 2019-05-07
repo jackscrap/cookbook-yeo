@@ -9,11 +9,17 @@ import {
 import Head from "./head";
 import UserHead from "./userHead";
 
+import Triangle from "react-native-triangle";
+
 import Hr from "./hr";
 
 import * as firebase from "firebase";
 
 export default class Profile extends React.Component {
+  static navigationOptions = {
+    headerLeft: null
+  };
+
 	constructor(
 		props
 	) {
@@ -52,6 +58,49 @@ export default class Profile extends React.Component {
           borderColor: "#303030"
         }}
 			>
+        <TouchableOpacity
+          style={{
+            width: 60,
+            height: 60,
+            position: "absolute",
+            zIndex: 1
+          }}
+
+          onPress={() =>
+            this.props.navigation.dispatch({
+              type: "Navigation/BACK"
+            })
+          }
+        >
+          <Triangle
+            width={60}
+            height={60}
+            color="#fff"
+            direction="up-left"
+            style={{
+              position: "absolute"
+            }}
+          />
+          <Triangle
+            width={60}
+            height={60}
+            color="#fff"
+            direction="down-right"
+            style={{
+              shadowOffset: {
+                width: 1,
+                height: 1
+              },
+              shadowColor: "#111",
+              shadowOpacity: 0.16,
+
+              position: "absolute",
+              left: 0,
+              top: 0
+            }}
+          />
+        </TouchableOpacity>
+
 				<Head />
 
 				<Hr />

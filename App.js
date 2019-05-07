@@ -5,8 +5,6 @@ import {
 } from "react-navigation";
 import Orientation from "react-native-orientation";
 
-import Triangle from "react-native-triangle";
-
 // import {
 // 	ScreenOrientation
 // } from "expo";
