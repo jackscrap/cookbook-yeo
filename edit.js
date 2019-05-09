@@ -17,7 +17,7 @@ import DogEar from "./dogEar";
 
 import * as firebase from "firebase";
 
-export default class New extends React.Component {
+export default class Edit extends React.Component {
 	constructor(props) {
 		super(props);
 	}
@@ -27,7 +27,7 @@ export default class New extends React.Component {
   };
 
 	state = {
-		header: "",
+		title: "",
 		author: "Jack Alma",
 		email: "jackhasakeyboard@gmail.com",
 		ingredient: [
@@ -36,20 +36,18 @@ export default class New extends React.Component {
 		note: [],
 		step: [
 			{
-				header: "",
+				title: "",
 				inst: ""
 			}
 		],
 
-		errorMessage: null,
-
-		user: this.props.navigation.getParam("user", "...")
+		errorMessage: null
 	};
 
 	post = () => {
 		firebase.database().ref().child("recipe").push(
 			{
-				"header": this.state.header,
+				"title": this.state.title,
 				"author": this.state.author,
 				"email": this.state.email,
 				"ingredient": this.state.ingredient,
@@ -88,11 +86,11 @@ export default class New extends React.Component {
 
 		return (
 			<SafeAreaView
-				style={{
-					flex: 1,
-					borderWidth: 26,
-					borderColor: "#303030"
-				}}
+        style={{
+          flex: 1,
+          borderWidth: 26,
+          borderColor: "#303030"
+        }}
 			>
 				<DogEar
 					navigation={this.props.navigation}
@@ -103,7 +101,7 @@ export default class New extends React.Component {
 				<Hr />
 
 				<Ctrl
-					user={this.state.user}
+					user={this.props.user}
 					navigation={this.props.navigation}
 				/>
 
@@ -116,18 +114,18 @@ export default class New extends React.Component {
 						}}
 					>
 						<TextInput
-							placeholder="Header"
+							placeholder="Title"
 							autoCapitalize="none"
 							style={
 								styles.textInput
 							}
 							onChangeText={
-								header => this.setState({
-									header: header
+								title => this.setState({
+									title: title
 								})
 							}
 							value={
-								this.state.header
+								this.state.title
 							}
 						/>
 
@@ -158,7 +156,7 @@ export default class New extends React.Component {
 										color: "grey"
 									}}
 								>
-									New Ingredient
+									Edit Ingredient
 								</Text>
 							</TouchableOpacity>
 
@@ -188,7 +186,7 @@ export default class New extends React.Component {
 						</View>
 
 						<View>
-							<Text
+			 				<Text
 								style={
 									styles.head
 								}
@@ -217,7 +215,7 @@ export default class New extends React.Component {
 										color: "grey"
 									}}
 								>
-									New Step
+									Edit Step
 								</Text>
 							</TouchableOpacity>
 
@@ -241,10 +239,10 @@ export default class New extends React.Component {
 												</Text>
 
 												<TextInput
-													placeholder="Header"
+													placeholder="Title"
 													onChangeText={
 														(txt) => {
-															this.state.step[i]["Title"] = txt;
+															this.state.step[i]["title"] = txt;
 														}
 													}
 													style={

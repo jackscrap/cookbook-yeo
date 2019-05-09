@@ -23,10 +23,8 @@ import Profile from "./profile";
 import Hr from "./hr";
 
 export default class Ctrl extends React.Component {
-	constructor(
-		props
-	) {
-		super();
+	constructor(props) {
+		super(props);
 	}
 
 	handleSignOut = () => {
@@ -54,7 +52,10 @@ export default class Ctrl extends React.Component {
 						<TouchableOpacity
 							onPress={
 								() => this.props.navigation.navigate(
-									"Profile"
+									"Profile",
+									{
+										user: this.props.user
+									}
 								)
 							}
 						>
@@ -73,29 +74,8 @@ export default class Ctrl extends React.Component {
 
 					<View
 						style={{
-							margin: 8
-						}}
-					>
-						<TouchableOpacity
-							style={{
-								margin: 8,
-								fontSize: 16
-							}}
-							onPress={
-								this.handleSignOut
-							}
-						>
-							<Text>
-								Log Out
-							</Text>
-						</TouchableOpacity>
-					</View>
-
-					<Hr />
-
-					<View
-						style={{
-							margin: 8
+							margin: 8,
+							flexDirection: "row"
 						}}
 					>
 						<TouchableOpacity
@@ -105,12 +85,30 @@ export default class Ctrl extends React.Component {
 							}}
 							onPress={
 								() => this.props.navigation.navigate(
-									"New"
+									"New",
+									{
+										user: this.props.user
+									}
 								)
 							}
 						>
 							<Text>
 								New
+							</Text>
+						</TouchableOpacity>
+				
+						<TouchableOpacity
+							style={{
+								margin: 8,
+								marginLeft: "auto",
+								fontSize: 16
+							}}
+							onPress={
+								this.handleSignOut
+							}
+						>
+							<Text>
+								Log Out
 							</Text>
 						</TouchableOpacity>
 					</View>

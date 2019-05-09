@@ -10,26 +10,24 @@ import {
 import Head from "./head";
 import Ctrl from "./ctrl";
 
-import Triangle from "react-native-triangle";
-
 import Hr from "./hr";
+
+import DogEar from "./dogEar";
+
+import Triangle from "react-native-triangle";
 
 import * as firebase from "firebase";
 
 export default class Profile extends React.Component {
-  static navigationOptions = {
-    headerLeft: null
-  };
-
-	constructor(
-		props
-	) {
+	constructor(props) {
 		super(props);
 
-    this.state = {
-      ln: [],
-      recipe: []
-    };
+		this.state = {
+			user: this.props.navigation.getParam("user", "..."),
+
+			ln: [],
+			recipe: []
+		};
 	}
 
 	componentDidMount() {
@@ -42,92 +40,24 @@ export default class Profile extends React.Component {
         recipe: snap.val()
       });
     });
-
-		this.setState(
-			{
-				"email": "jackhasakeyboard@gmail.com"
-			}
-		);
 	}
 
+  static navigationOptions = {
+    headerLeft: null
+  };
+
   render() {
-    return (
-      <SafeAreaView
-        style={{
-          flex: 1,
-          borderWidth: 26,
-          borderColor: "#303030"
-        }}
+		return (
+			<SafeAreaView
+				style={{
+					flex: 1,
+					borderWidth: 26,
+					borderColor: "#303030"
+				}}
 			>
-        <TouchableOpacity
-          style={{
-            width: 60,
-            height: 60,
-            position: "absolute",
-            zIndex: 1
-          }}
-
-          onPress={() =>
-            this.props.navigation.dispatch({
-              type: "Navigation/BACK"
-            })
-          }
-        >
-          <Triangle
-            width={60}
-            height={60}
-            color="#fff"
-            direction="up-left"
-            style={{
-              position: "absolute"
-            }}
-          />
-          <Triangle
-            width={60}
-            height={60}
-            color="#fff"
-            direction="down-right"
-            style={{
-              shadowOffset: {
-                width: 1,
-                height: 1
-              },
-              shadowColor: "#111",
-              shadowOpacity: 0.16,
-
-              position: "absolute",
-              left: 0,
-              top: 0
-            }}
-          />
-        </TouchableOpacity>
+				<DogEar />
 
 				<Head />
-
-				<Hr />
-
-				<View
-					style={{
-						padding: 8
-					}}
-				>
-					<TouchableOpacity
-						onPress={
-							() => this.props.navigation.navigate(
-								"Profile"
-							)
-						}
-					>
-						<Text
-							style={{
-								fontSize: 16,
-								margin: 8
-							}}
-						>
-							{this.props.user.email}
-						</Text>
-					</TouchableOpacity>
-				</View>
 
 				<Hr />
 
@@ -138,15 +68,18 @@ export default class Profile extends React.Component {
 
 				<Hr />
 
-				<View
+				<ScrollView
 					style={{
 						margin: 8
 					}}
 				>
 					{
 						this.state.recipe.map(
-							(item, k) => {
-								if (item.email == "nalma@telus.net") {
+							(
+								item,
+								k
+							) => {
+								if (item.email == this.state.user.email) {
 									return (
 										<TouchableOpacity
 											key={k}
@@ -174,8 +107,8 @@ export default class Profile extends React.Component {
 							}
 						)
 					}
-				</View>
-      </SafeAreaView>
-    );
+				</ScrollView>
+			</SafeAreaView>
+		);
   }
 }

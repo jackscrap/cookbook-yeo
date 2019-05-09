@@ -67,7 +67,9 @@ export default class Landing extends React.Component {
 
   render() {
 		let arr = [];
-		for (let key in this.state.recipe) {
+		for (
+			let key in this.state.recipe
+		) {
 			arr.push(this.state.recipe[key]);
 		}
 
@@ -92,63 +94,65 @@ export default class Landing extends React.Component {
 
         <ScrollView>
           {
-						this.alphabet().map((c, k) => {
-							return (
-								<View
-									key={k}
-									style={{
-										padding: 8
-									}}
-								>
-									<Text
+						this.alphabet().map(
+							(c, k) => {
+								return (
+									<View
+										key={k}
 										style={{
-											margin: 8,
-											fontSize: 60,
-											color: "#303030"
+											padding: 8
 										}}
 									>
-										{c.toUpperCase()}
-									</Text>
+										<Text
+											style={{
+												margin: 8,
+												fontSize: 60,
+												color: "#303030"
+											}}
+										>
+											{c.toUpperCase()}
+										</Text>
 
-									<View>
-										{
-											arr.map(
-												(
-													item,
-													k
-												) => {
-													if (item.title[0].toLowerCase() == c) {
-														return (
-															<TouchableOpacity
-																key={k}
-																style={{
-																	padding: 4,
-																	margin: 8
-																}}
-																onPress={() =>
-																	this.props.navigation.navigate("Recipe", {
-																		i: k
-																	})
-																}
-															>
-																<Text
+										<View>
+											{
+												arr.map(
+													(
+														item,
+														k
+													) => {
+														if (item.title[0].toLowerCase() == c) {
+															return (
+																<TouchableOpacity
+																	key={k}
 																	style={{
-																		fontSize: 26,
-																		color: "#303030"
+																		padding: 4,
+																		margin: 8
 																	}}
+																	onPress={() =>
+																		this.props.navigation.navigate("Recipe", {
+																			i: k
+																		})
+																	}
 																>
-																	{item.title}
-																</Text>
-															</TouchableOpacity>
-														);
+																	<Text
+																		style={{
+																			fontSize: 26,
+																			color: "#303030"
+																		}}
+																	>
+																		{item.title}
+																	</Text>
+																</TouchableOpacity>
+															);
+														}
 													}
-												}
-											)
-										}
+												)
+											}
+										</View>
 									</View>
-								</View>
-							);
-          	})
+								);
+          		}
+						)
 					}
         </ScrollView>
       </SafeAreaView>
