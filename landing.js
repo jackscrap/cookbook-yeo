@@ -70,7 +70,9 @@ export default class Landing extends React.Component {
 		for (
 			let key in this.state.recipe
 		) {
-			arr.push(this.state.recipe[key]);
+			arr.push({
+				key: this.state.recipe[key]
+			});
 		}
 
     return (
@@ -95,7 +97,10 @@ export default class Landing extends React.Component {
         <ScrollView>
           {
 						this.alphabet().map(
-							(c, k) => {
+							(
+								c,
+								k
+							) => {
 								return (
 									<View
 										key={k}
@@ -115,12 +120,11 @@ export default class Landing extends React.Component {
 
 										<View>
 											{
-												arr.map(
+												Object.keys(this.state.recipe).map(
 													(
-														item,
 														k
 													) => {
-														if (item.title[0].toLowerCase() == c) {
+														if (this.state.recipe[k].title[0].toLowerCase() == c) {
 															return (
 																<TouchableOpacity
 																	key={k}
@@ -129,9 +133,12 @@ export default class Landing extends React.Component {
 																		margin: 8
 																	}}
 																	onPress={() =>
-																		this.props.navigation.navigate("Recipe", {
-																			i: k
-																		})
+																		this.props.navigation.navigate(
+																		"Recipe",
+																			{
+																				i: k
+																			}
+																		)
 																	}
 																>
 																	<Text
@@ -140,7 +147,7 @@ export default class Landing extends React.Component {
 																			color: "#303030"
 																		}}
 																	>
-																		{item.title}
+																		{this.state.recipe[k].title}
 																	</Text>
 																</TouchableOpacity>
 															);

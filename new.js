@@ -20,48 +20,50 @@ import * as firebase from "firebase";
 export default class New extends React.Component {
 	constructor(props) {
 		super(props);
+
+		this.state = {
+			title: "",
+			author: "Jack Alma",
+			email: "jackhasakeyboard@gmail.com",
+			ingredient: [
+				""
+			],
+			note: [],
+			step: [
+				{
+					header: "",
+					inst: ""
+				}
+			],
+
+			errorMessage: null,
+
+			user: this.props.navigation.getParam("user", "...")
+		};
 	}
 
   static navigationOptions = {
     headerLeft: null
   };
 
-	state = {
-		header: "",
-		author: "Jack Alma",
-		email: "jackhasakeyboard@gmail.com",
-		ingredient: [
-			""
-		],
-		note: [],
-		step: [
-			{
-				header: "",
-				inst: ""
-			}
-		],
-
-		errorMessage: null,
-
-		user: this.props.navigation.getParam("user", "...")
-	};
-
 	post = () => {
-		firebase.database().ref().child("recipe").push(
+		let i = firebase.database().ref().child("recipe").push(
 			{
-				"header": this.state.header,
 				"author": this.state.author,
 				"email": this.state.email,
+
+				"title": this.state.title,
 				"ingredient": this.state.ingredient,
-				"note": [
-				],
-				"step": [
-				]
+				"note": this.state.note,
+				"step": this.state.step
 			}
-		).then(
-			this.props.navigation.navigate("Recipe", {
-				i: 0
-			})
+		).key;
+
+		this.props.navigation.navigate(
+			"Recipe",
+			{
+				i: i
+			}
 		);
 	}
 
@@ -116,18 +118,34 @@ export default class New extends React.Component {
 						}}
 					>
 						<TextInput
-							placeholder="Header"
+							placeholder="Title"
 							autoCapitalize="none"
 							style={
 								styles.textInput
 							}
 							onChangeText={
-								header => this.setState({
-									header: header
+								title => this.setState({
+									title: title
 								})
 							}
 							value={
-								this.state.header
+								this.state.title
+							}
+						/>
+
+						<TextInput
+							placeholder="Note"
+							autoCapitalize="none"
+							style={
+								styles.textInput
+							}
+							onChangeText={
+								note => this.setState({
+									note: note
+								})
+							}
+							value={
+								this.state.note
 							}
 						/>
 
@@ -203,8 +221,8 @@ export default class New extends React.Component {
 											step: [
 												...this.state.step,
 												{
-													name: "",
-													cont: ""
+													title: "",
+													desc: ""
 												}
 											]
 										});
@@ -244,7 +262,7 @@ export default class New extends React.Component {
 													placeholder="Header"
 													onChangeText={
 														(txt) => {
-															this.state.step[i]["Title"] = txt;
+															this.state.step[i]["title"] = txt;
 														}
 													}
 													style={
@@ -260,7 +278,7 @@ export default class New extends React.Component {
 													placeholder="Instructions"
 													onChangeText={
 														(txt) => {
-															this.state.step[i]["inst"] = txt;
+															this.state.step[i]["cont"] = txt;
 														}
 													}
 													style={
@@ -277,8 +295,6 @@ export default class New extends React.Component {
 								}
 							</View>
 						</View>
-
-						
 					</View>
 
 					<TouchableOpacity

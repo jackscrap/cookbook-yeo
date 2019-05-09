@@ -12,7 +12,9 @@ import {
 
 import * as firebase from "firebase";
 
-import Triangle from "react-native-triangle";
+import DogEar from "./dogEar";
+import Head from "./head";
+import Hr from "./hr";
 
 export default class Recipe extends React.Component {
   static navigationOptions = {
@@ -32,17 +34,14 @@ export default class Recipe extends React.Component {
       i: this.props.navigation.getParam("i")
     });
 
-    const root = firebase.database().ref(),
+    const
+			root = firebase.database().ref(),
       ref = root.child("recipe");
 
     ref.on("value", snap => {
       this.setState({
         recipe: snap.val()
       });
-
-      const {
-				navigation
-			} = this.props;
     });
   }
 
@@ -55,69 +54,11 @@ export default class Recipe extends React.Component {
           borderColor: "#303030"
         }}
       >
-        <TouchableOpacity
-          style={{
-            width: 60,
-            height: 60,
-            position: "absolute",
-            zIndex: 1
-          }}
+				<DogEar />
 
-          onPress={() =>
-            this.props.navigation.dispatch({
-              type: "Navigation/BACK"
-            })
-          }
-        >
-          <Triangle
-            width={60}
-            height={60}
-            color="#fff"
-            direction="up-left"
-            style={{
-              position: "absolute"
-            }}
-          />
-          <Triangle
-            width={60}
-            height={60}
-            color="#fff"
-            direction="down-right"
-            style={{
-              shadowOffset: {
-                width: 1,
-                height: 1
-              },
-              shadowColor: "#111",
-              shadowOpacity: 0.16,
+				<Head />
 
-              position: "absolute",
-              left: 0,
-              top: 0
-            }}
-          />
-        </TouchableOpacity>
-
-        <View>
-          <Text
-            style={{
-              fontSize: 100,
-              textAlign: "center",
-              fontFamily: "Times New Roman",
-              color: "#303030"
-            }}
-          >
-            A
-          </Text>
-        </View>
-
-        <View
-          style={{
-            borderBottomColor: "#303030",
-            borderBottomWidth: 6,
-            margin: 16
-          }}
-        />
+				<Hr />
 
         <ScrollView
 					style={{
@@ -140,9 +81,11 @@ export default class Recipe extends React.Component {
                   color: "#303030"
                 }}
               >
-                {this.state.recipe[this.state.i] != undefined
+                {
+									this.state.recipe[this.state.i] != undefined
                   ? this.state.recipe[this.state.i].title
-                  : "..."}
+                  : "..."
+								}
               </Text>
 
               <Text
@@ -151,9 +94,11 @@ export default class Recipe extends React.Component {
                   color: "#303030"
                 }}
               >
-                {this.state.recipe[this.state.i] != undefined
+                {
+									this.state.recipe[this.state.i] != undefined
                   ? this.state.recipe[this.state.i].author
-                  : "..."}
+                  : "..."
+								}
               </Text>
             </View>
 
@@ -170,21 +115,27 @@ export default class Recipe extends React.Component {
                 Notes
               </Text>
 
-              {
-								this.state.recipe[this.state.i] != undefined ? (
-									this.state.recipe[this.state.i].note.map((item, k) => {
-										return (
-											<Text
-												key={k}
-											>
-												{item}
-											</Text>
-										);
-									})
-								) : (
-									<Text>...</Text>
-								)
-							}
+							<Text>
+								{
+									this.state.recipe[this.state.i] != undefined
+									? this.state.recipe[this.state.i].note
+									: "..."
+
+									// this.state.recipe[this.state.i] != undefined ? (
+									// 	this.state.recipe[this.state.i].note.map((item, k) => {
+									// 		return (
+									// 			<Text
+									// 				key={k}
+									// 			>
+									// 				{item}
+									// 			</Text>
+									// 		);
+									// 	})
+									// ) : (
+									// 	<Text>...</Text>
+									// )
+								}
+							</Text>
 						</View>
 
             <View
@@ -236,35 +187,39 @@ export default class Recipe extends React.Component {
                 width: "60%"
               }}
             >
-              {this.state.recipe[this.state.i] != undefined ? (
-                this.state.recipe[this.state.i].step.map((step, k) => {
-                  return (
-                    <View
-                      key={k}
-                      style={{
-                        margin: 8
-                      }}
-                    >
-                      <Text
-                        style={{
-                          fontSize: 26,
-                          color: "#303030"
-                        }}
-                      >
-                        {k + 1}
-                      </Text>
+              {
+								this.state.recipe[this.state.i] != undefined
+								? (
+                this.state.recipe[this.state.i].step.map(
+									(step, k) => {
+										return (
+											<View
+												key={k}
+												style={{
+													margin: 8
+												}}
+											>
+												<Text
+													style={{
+														fontSize: 26,
+														color: "#303030"
+													}}
+												>
+													{k + 1}
+												</Text>
 
-                      <Text
-                        style={{
-                          fontSize: 16,
-                          color: "#303030"
-                        }}
-                      >
-                        {step.title}
-                      </Text>
-                    </View>
-                  );
-                })
+												<Text
+													style={{
+														fontSize: 16,
+														color: "#303030"
+													}}
+												>
+													{step.title}
+												</Text>
+											</View>
+										);
+                	}
+								)
               ) : (
                 <Text
                   style={{
