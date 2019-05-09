@@ -24,7 +24,7 @@ export default class New extends React.Component {
 		this.state = {
 			title: "",
 			author: "Jack Alma",
-			email: "jackhasakeyboard@gmail.com",
+			email: this.props.navigation.getParam("user", "...").email,
 			ingredient: [
 				""
 			],
