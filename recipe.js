@@ -54,7 +54,9 @@ export default class Recipe extends React.Component {
           borderColor: "#303030"
         }}
       >
-				<DogEar />
+			 	<DogEar
+					navigation={this.props.navigation}
+				/>
 
 				<Head />
 

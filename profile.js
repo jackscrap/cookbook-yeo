@@ -14,8 +14,6 @@ import Hr from "./hr";
 
 import DogEar from "./dogEar";
 
-import Triangle from "react-native-triangle";
-
 import * as firebase from "firebase";
 
 export default class Profile extends React.Component {
@@ -55,7 +53,9 @@ export default class Profile extends React.Component {
 					borderColor: "#303030"
 				}}
 			>
-				<DogEar />
+				<DogEar
+					navigation={this.props.navigation}
+				/>
 
 				<Head />
 
@@ -74,12 +74,11 @@ export default class Profile extends React.Component {
 					}}
 				>
 					{
-						this.state.recipe.map(
+						Object.keys(this.state.recipe).map(
 							(
-								item,
 								k
 							) => {
-								if (item.email == this.state.user.email) {
+								if (this.state.recipe[k].email == this.state.user.email) {
 									return (
 										<TouchableOpacity
 											key={k}
@@ -88,9 +87,12 @@ export default class Profile extends React.Component {
 												margin: 8
 											}}
 											onPress={() =>
-												this.props.navigation.navigate("Recipe", {
-													i: k
-												})
+												this.props.navigation.navigate(
+													"Recipe",
+													{
+														i: k
+													}
+												)
 											}
 										>
 											<Text
@@ -99,7 +101,7 @@ export default class Profile extends React.Component {
 													color: "#303030"
 												}}
 											>
-												{item.title}
+												{this.state.recipe[k].title}
 											</Text>
 										</TouchableOpacity>
 									);
