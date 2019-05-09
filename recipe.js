@@ -153,7 +153,8 @@ export default class Recipe extends React.Component {
               </Text>
 
               {
-								this.state.recipe[this.state.i] != undefined ? (
+								this.state.recipe[this.state.i] != undefined
+								? (
 									this.state.recipe[this.state.i].ingredient.map((item, k) => {
 										return (
 											<Text

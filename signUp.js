@@ -21,13 +21,14 @@ import Triangle from "react-native-triangle";
 export default class SignUp extends React.Component {
 	constructor(props) {
 		super(props);
-	}
 
-	state = {
-		email: "",
-		password: "",
-		errorMessage: null
-	};
+		this.state = {
+			username: "",
+			email: "",
+			password: "",
+			errorMessage: null
+		};
+	}
 
   static navigationOptions = {
     headerLeft: null
@@ -36,9 +37,28 @@ export default class SignUp extends React.Component {
 	handleSignUp = () => {
 		firebase
       .auth()
-      .createUserWithEmailAndPassword(this.state.email, this.state.password)
-      .then(() => this.props.navigation.navigate("Landing"))
-      .catch(error => this.setState({ errorMessage: error.message }))
+      .createUserWithEmailAndPassword(
+				this.state.email,
+				this.state.password
+			)
+			.then(
+				() => {
+					let user = firebase.auth().currentUser;
+
+					user.updateProfile({
+						displayName: this.state.username
+					}).then(() => {
+						alert(Object.keys(user))
+					}).catch((err) => {
+						alert(err);
+					});
+
+					this.props.navigation.navigate("Landing");
+				}
+			)
+      .catch((err) => this.setState({
+				errorMessage: err.message
+			}));
 	}
 
 	render() {
@@ -100,7 +120,23 @@ export default class SignUp extends React.Component {
 					}}
 				>
 					<TextInput
-						placeholder="Email"
+						placeholder="Username"
+						autoCapitalize="none"
+						style={
+							styles.textInput
+						}
+						onChangeText={
+							username => this.setState({
+								username
+							})
+						}
+						value={
+							this.state.username
+						}
+					/>
+
+					<TextInput
+						placeholder="E-mail"
 						autoCapitalize="none"
 						style={
 							styles.textInput

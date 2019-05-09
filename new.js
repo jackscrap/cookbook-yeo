@@ -23,12 +23,11 @@ export default class New extends React.Component {
 
 		this.state = {
 			title: "",
-			author: "Jack Alma",
 			email: this.props.navigation.getParam("user", "...").email,
 			ingredient: [
 				""
 			],
-			note: [],
+			note: "",
 			step: [
 				{
 					header: "",
@@ -49,7 +48,6 @@ export default class New extends React.Component {
 	post = () => {
 		let i = firebase.database().ref().child("recipe").push(
 			{
-				"author": this.state.author,
 				"email": this.state.email,
 
 				"title": this.state.title,
@@ -80,11 +78,11 @@ export default class New extends React.Component {
 				padding: 8,
 				margin: 8,
 				height: 40,
-				// borderBottomWidth: 6,
-				// borderColor: "#303030"
+				borderBottomWidth: 6,
+				borderColor: "#303030"
 
-				borderWidth: 2,
-				borderColor: "grey"
+				// borderWidth: 2,
+				// borderColor: "grey"
 			}
 		});
 
@@ -185,6 +183,7 @@ export default class New extends React.Component {
 									this.state.ingredient.map((val, i) => {
 										return (
 											<TextInput
+												key={i}
 												placeholder="Ingredient"
 												style={
 													styles.textInput
@@ -247,7 +246,9 @@ export default class New extends React.Component {
 								{
 									this.state.step.map((val, i) => {
 										return (
-											<View>
+											<View
+												key={i}
+											>
 												<Text
 													style={{
 														fontSize: 40

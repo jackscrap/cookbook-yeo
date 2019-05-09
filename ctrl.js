@@ -65,7 +65,7 @@ export default class Ctrl extends React.Component {
 									margin: 8
 								}}
 							>
-								{this.props.user.email}
+								{this.props.user.displayName}
 							</Text>
 						</TouchableOpacity>
 					</View>
