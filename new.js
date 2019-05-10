@@ -132,7 +132,7 @@ export default class New extends React.Component {
 						/>
 
 						<TextInput
-							placeholder="Note"
+							placeholder="Notes"
 							autoCapitalize="none"
 							style={
 								styles.textInput

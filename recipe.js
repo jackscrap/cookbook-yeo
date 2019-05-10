@@ -77,6 +77,28 @@ export default class Recipe extends React.Component {
                 padding: 8
               }}
             >
+								{
+									this.state.recipe[this.state.i]
+									? (
+										<TouchableOpacity
+											onPress={
+												() => this.props.navigation.navigate(
+													"Edit",
+													{
+														navigation: this.props.navigation,
+														i: this.state.i
+													}
+												)
+											}
+										>
+											<Text>
+												Edit
+											</Text>
+										</TouchableOpacity>
+									)
+									: <Text>...</Text>
+								}
+
               <Text
                 style={{
                   fontSize: 40,

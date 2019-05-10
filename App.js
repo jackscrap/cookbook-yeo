@@ -17,6 +17,7 @@ import SignUp from "./signUp";
 import LogIn from "./logIn";
 import Profile from "./profile";
 import New from "./new";
+import Edit from "./edit";
 
 import auth from "./auth";
 
@@ -33,7 +34,8 @@ const Nav = createStackNavigator(
 		SignUp: SignUp,
 		LogIn: LogIn,
 		Profile: Profile,
-		New: New
+		New: New,
+		Edit: Edit
   }, {}
 );
 

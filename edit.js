@@ -1,69 +1,125 @@
 import React from "react";
+
 import {
-	View,
+  View,
   SafeAreaView,
-	ScrollView,
-	Text,
-	TextInput,
-	TouchableOpacity,
+  ScrollView,
+  Text,
+  TextInput,
+  TouchableOpacity,
 
 	StyleSheet
 } from "react-native";
 
-import Head from "./head";
-import Hr from "./hr";
-import Ctrl from "./ctrl";
 import DogEar from "./dogEar";
+import Head from "./head";
+import Ctrl from "./ctrl";
+
+import Hr from "./hr";
 
 import * as firebase from "firebase";
 
 export default class Edit extends React.Component {
-	constructor(props) {
-		super(props);
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      ln: [],
+      recipe: [],
+
+			title: "",
+			email: "",
+			ingredient: [],
+			note: "",
+			step: [
+				{
+					header: "",
+					inst: ""
+				}
+			],
+
+			errorMessage: null,
+
+			user: this.props.navigation.getParam("user", "...")
+    };
+  }
+
+	update = () => {
+		let i = this.props.navigation.getParam("i");
+
+		firebase.database().ref().child("recipe/" + i).update(
+			{
+				email: this.state.email,
+
+				title: this.state.title,
+				ingredient: this.state.ingredient,
+				note: this.state.note,
+				step: this.state.step
+			}
+		);
+
+		this.props.navigation.navigate(
+			"Recipe",
+			{
+				i: i
+			}
+		);
 	}
 
   static navigationOptions = {
     headerLeft: null
   };
 
-	state = {
-		title: "",
-		author: "Jack Alma",
-		email: "jackhasakeyboard@gmail.com",
-		ingredient: [
-			""
-		],
-		note: [],
-		step: [
-			{
-				title: "",
-				inst: ""
-			}
-		],
+  componentDidMount() {
+    const
+			root = firebase.database().ref(),
+      ref = root.child("recipe");
 
-		errorMessage: null
-	};
+    ref.on("value", snap => {
+			let
+				i = this.props.navigation.getParam("i"),
 
-	post = () => {
-		firebase.database().ref().child("recipe").push(
-			{
-				"title": this.state.title,
-				"author": this.state.author,
-				"email": this.state.email,
-				"ingredient": this.state.ingredient,
-				"note": [
-				],
-				"step": [
-				]
+				inst = snap.val()[i];
+
+      this.setState({
+        recipe: snap.val(),
+
+				title: inst.title,
+				email: inst.email,
+				ingredient: inst.ingredient,
+				note: inst.note,
+				step: inst.step
+      });
+    });
+
+		firebase.auth().onAuthStateChanged(
+			(user) => {
+				this.setState({
+					user: user
+				});
 			}
-		).then(
-			this.props.navigation.navigate("Recipe", {
-				i: 0
-			})
 		);
-	}
+  }
 
-	render() {
+  alphabet() {
+    let
+			c = [],
+      i = "a".charCodeAt(0);
+
+    const j = "z".charCodeAt(0);
+
+    for (
+			;
+			i <= j;
+			++i
+		) {
+      c.push(String.fromCharCode(i));
+    }
+
+    return c;
+  }
+
+  render() {
 		const styles = StyleSheet.create({
 			head: {
 				margin: 8,
@@ -76,228 +132,254 @@ export default class Edit extends React.Component {
 				padding: 8,
 				margin: 8,
 				height: 40,
-				// borderBottomWidth: 6,
-				// borderColor: "#303030"
+				borderBottomWidth: 6,
+				borderColor: "#303030"
 
-				borderWidth: 2,
-				borderColor: "grey"
+				// borderWidth: 2,
+				// borderColor: "grey"
 			}
 		});
 
-		return (
-			<SafeAreaView
-        style={{
-          flex: 1,
-          borderWidth: 26,
-          borderColor: "#303030"
-        }}
-			>
-				<DogEar
-					navigation={this.props.navigation}
-				/>
+		if (this.state.title != undefined) {
+			return (
+				<SafeAreaView
+					style={{
+						flex: 1,
+						borderWidth: 26,
+						borderColor: "#303030"
+					}}
+				>
+					<DogEar
+						navigation={this.props.navigation}
+					/>
 
-				<Head />
+					<Head />
 
-				<Hr />
+					<Hr />
 
-				<Ctrl
-					user={this.props.user}
-					navigation={this.props.navigation}
-				/>
+					<Ctrl
+						user={this.state.user}
+						navigation={this.props.navigation}
+					/>
 
-				<Hr />
+					<Hr />
 
-				<ScrollView>
-					<View
-						style={{
-							padding: 8
-						}}
-					>
-						<TextInput
-							placeholder="Title"
-							autoCapitalize="none"
-							style={
-								styles.textInput
-							}
-							onChangeText={
-								title => this.setState({
-									title: title
-								})
-							}
-							value={
-								this.state.title
-							}
-						/>
-
-						<View>
-							<Text
+					<ScrollView>
+						<View
+							style={{
+								padding: 8
+							}}
+						>
+							<TextInput
+								placeholder="Title"
+								autoCapitalize="none"
 								style={
-									styles.head
+									styles.textInput
 								}
-							>
-								Ingredients
-							</Text>
-
-							<TouchableOpacity
-								onPress={
-									() => {
-										this.setState({
-											ingredient: [
-												...this.state.ingredient,
-												""
-											]
-										});
-									}
-								}
-							>
-								<Text
-									style={{
-										margin: 8,
-										color: "grey"
-									}}
-								>
-									Edit Ingredient
-								</Text>
-							</TouchableOpacity>
-
-							<View>
-								{
-									this.state.ingredient.map((val, i) => {
-										return (
-											<TextInput
-												placeholder="Ingredient"
-												style={
-													styles.textInput
-												}
-												onChangeText={
-													(txt) => {
-														this.state.ingredient[i] = txt;
-													}
-												}
-											>
-												{
-													val.body
-												}
-											</TextInput>
-										)
+								onChangeText={
+									title => this.setState({
+										title: title
 									})
 								}
-							</View>
-						</View>
+								value={
+									this.state.title
+								}
+							/>
 
-						<View>
-			 				<Text
+							<TextInput
+								placeholder="Notes"
+								autoCapitalize="none"
 								style={
-									styles.head
+									styles.textInput
 								}
-							>
-								Steps
-							</Text>
+								onChangeText={
+									note => this.setState({
+										note: note
+									})
+								}
+								value={
+									this.state.note
+								}
+							/>
 
-							<TouchableOpacity
-								onPress={
-									() => {
-										this.setState({
-											step: [
-												...this.state.step,
-												{
-													name: "",
-													cont: ""
-												}
-											]
-										});
-									}
-								}
-							>
+							<View>
 								<Text
-									style={{
-										margin: 8,
-										color: "grey"
-									}}
+									style={
+										styles.head
+									}
 								>
-									Edit Step
+									Ingredients
 								</Text>
-							</TouchableOpacity>
 
-							<View
-								style={{
-									margin: 8
-								}}
-							>
-								{
-									this.state.step.map((val, i) => {
-										return (
-											<View>
-												<Text
-													style={{
-														fontSize: 40
-													}}
-												>
-													{
-														i
-													}
-												</Text>
+								<TouchableOpacity
+									onPress={
+										() => {
+											this.setState({
+												ingredient: [
+													...this.state.ingredient,
+													""
+												]
+											});
+										}
+									}
+								>
+									<Text
+										style={{
+											margin: 8,
+											color: "grey"
+										}}
+									>
+										New Ingredient
+									</Text>
+								</TouchableOpacity>
 
+								<View>
+									{
+										this.state.ingredient.map((val, i) => {
+											return (
 												<TextInput
-													placeholder="Title"
-													onChangeText={
-														(txt) => {
-															this.state.step[i]["title"] = txt;
-														}
-													}
+													key={i}
+													placeholder="Ingredient"
 													style={
 														styles.textInput
 													}
-												>
-													{
-														val.name
-													}
-												</TextInput>
-
-												<TextInput
-													placeholder="Instructions"
 													onChangeText={
 														(txt) => {
-															this.state.step[i]["inst"] = txt;
+															this.state.ingredient[i] = txt;
 														}
-													}
-													style={
-														styles.textInput
 													}
 												>
 													{
 														val.body
 													}
 												</TextInput>
-											</View>
-										)
-									})
-								}
+											)
+										})
+									}
+								</View>
+							</View>
+
+							<View>
+								<Text
+									style={
+										styles.head
+									}
+								>
+									Steps
+								</Text>
+
+								<TouchableOpacity
+									onPress={
+										() => {
+											this.setState({
+												step: [
+													...this.state.step,
+													{
+														title: "",
+														desc: ""
+													}
+												]
+											});
+										}
+									}
+								>
+									<Text
+										style={{
+											margin: 8,
+											color: "grey"
+										}}
+									>
+										New Step
+									</Text>
+								</TouchableOpacity>
+
+								<View
+									style={{
+										margin: 8
+									}}
+								>
+									{
+										this.state.step.map((val, i) => {
+											return (
+												<View
+													key={i}
+												>
+													<Text
+														style={{
+															fontSize: 40
+														}}
+													>
+														{
+															i
+														}
+													</Text>
+
+													<TextInput
+														placeholder="Header"
+														onChangeText={
+															(txt) => {
+																this.state.step[i]["title"] = txt;
+															}
+														}
+														style={
+															styles.textInput
+														}
+													>
+														{
+															val.name
+														}
+													</TextInput>
+
+													<TextInput
+														placeholder="Instructions"
+														onChangeText={
+															(txt) => {
+																this.state.step[i]["cont"] = txt;
+															}
+														}
+														style={
+															styles.textInput
+														}
+													>
+														{
+															val.body
+														}
+													</TextInput>
+												</View>
+											)
+										})
+									}
+								</View>
 							</View>
 						</View>
 
-						
-					</View>
-
-					<TouchableOpacity
-						onPress={
-							this.post
-						}
-						style={{
-							padding: 8
-						}}
-					>
-						<Text
+						<TouchableOpacity
+							onPress={
+								this.update
+							}
 							style={{
-								margin: 8,
-								color: "grey"
+								padding: 8
 							}}
 						>
-							Enter
-						</Text>
-					</TouchableOpacity>
-				</ScrollView>
-			</SafeAreaView>
-		);
-	}
+							<Text
+								style={{
+									margin: 8,
+									color: "grey"
+								}}
+							>
+								Enter
+							</Text>
+						</TouchableOpacity>
+					</ScrollView>
+				</SafeAreaView>
+			);
+		} else {
+			return (
+				<Text>
+					...
+				</Text>
+			);
+		}
+  }
 }
+
