@@ -181,7 +181,7 @@ export default class Edit extends React.Component {
 										title: title
 									})
 								}
-								value={
+								defaultValue={
 									this.state.title
 								}
 							/>
@@ -197,7 +197,7 @@ export default class Edit extends React.Component {
 										note: note
 									})
 								}
-								value={
+								defaultValue={
 									this.state.note
 								}
 							/>
@@ -239,6 +239,7 @@ export default class Edit extends React.Component {
 											return (
 												<TextInput
 													key={i}
+													defaultValue={this.state.step[i]["cont"]}
 													placeholder="Ingredient"
 													style={
 														styles.textInput
@@ -316,6 +317,7 @@ export default class Edit extends React.Component {
 
 													<TextInput
 														placeholder="Header"
+														defaultValue={this.state.step[i]["title"]}
 														onChangeText={
 															(txt) => {
 																this.state.step[i]["title"] = txt;
@@ -332,6 +334,7 @@ export default class Edit extends React.Component {
 
 													<TextInput
 														placeholder="Instructions"
+														defaultValue={this.state.step[i]["cont"]}
 														onChangeText={
 															(txt) => {
 																this.state.step[i]["cont"] = txt;
