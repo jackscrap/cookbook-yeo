@@ -174,7 +174,7 @@ export default class New extends React.Component {
 										color: "grey"
 									}}
 								>
-									New Ingredient
+									New
 								</Text>
 							</TouchableOpacity>
 
@@ -234,7 +234,7 @@ export default class New extends React.Component {
 										color: "grey"
 									}}
 								>
-									New Step
+									New
 								</Text>
 							</TouchableOpacity>
 
