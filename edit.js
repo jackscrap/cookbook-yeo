@@ -170,6 +170,15 @@ export default class Edit extends React.Component {
 								padding: 8
 							}}
 						>
+							<Text
+								style={{
+									fontSize: 26,
+									margin: 8
+								}}
+							>
+								Title
+							</Text>
+
 							<TextInput
 								placeholder="Title"
 								autoCapitalize="none"
@@ -185,6 +194,15 @@ export default class Edit extends React.Component {
 									this.state.title
 								}
 							/>
+
+							<Text
+								style={{
+									fontSize: 26,
+									margin: 8
+								}}
+							>
+								Notes
+							</Text>
 
 							<TextInput
 								placeholder="Notes"
