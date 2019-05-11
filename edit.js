@@ -17,6 +17,8 @@ import Ctrl from "./ctrl";
 
 import Hr from "./hr";
 
+import style from "./style";
+
 import * as firebase from "firebase";
 
 export default class Edit extends React.Component {
@@ -127,16 +129,6 @@ export default class Edit extends React.Component {
 			},
 			txt: {
 				margin: 8
-			},
-			textInput: {
-				padding: 8,
-				margin: 8,
-				height: 40,
-				borderBottomWidth: 6,
-				borderColor: "#303030"
-
-				// borderWidth: 2,
-				// borderColor: "grey"
 			}
 		});
 
@@ -183,7 +175,7 @@ export default class Edit extends React.Component {
 								placeholder="Title"
 								autoCapitalize="none"
 								style={
-									styles.textInput
+									style.txtInput
 								}
 								onChangeText={
 									title => this.setState({
@@ -208,7 +200,7 @@ export default class Edit extends React.Component {
 								placeholder="Notes"
 								autoCapitalize="none"
 								style={
-									styles.textInput
+									style.txtInput
 								}
 								onChangeText={
 									note => this.setState({
@@ -260,7 +252,7 @@ export default class Edit extends React.Component {
 													defaultValue={this.state.ingredient[i]}
 													placeholder="Ingredient"
 													style={
-														styles.textInput
+														style.txtInput
 													}
 													onChangeText={
 														(txt) => {
@@ -312,11 +304,7 @@ export default class Edit extends React.Component {
 									</Text>
 								</TouchableOpacity>
 
-								<View
-									style={{
-										margin: 8
-									}}
-								>
+								<View>
 									{
 										this.state.step.map((val, i) => {
 											return (
@@ -325,7 +313,8 @@ export default class Edit extends React.Component {
 												>
 													<Text
 														style={{
-															fontSize: 40
+															margin: 8,
+															fontSize: 40,
 														}}
 													>
 														{
@@ -342,7 +331,7 @@ export default class Edit extends React.Component {
 															}
 														}
 														style={
-															styles.textInput
+															style.txtInput
 														}
 													>
 														{
@@ -359,7 +348,7 @@ export default class Edit extends React.Component {
 															}
 														}
 														style={
-															styles.textInput
+															style.txtInput
 														}
 													>
 														{

@@ -42,10 +42,13 @@ export default class Ctrl extends React.Component {
 	render() {
 		if (this.props.user) {
 			return (
-				<View>
+				<View
+					style={{
+						padding: 8
+					}}
+				>
 					<View
 						style={{
-							padding: 8,
 							flexDirection: "row"
 						}}
 					>
@@ -72,7 +75,6 @@ export default class Ctrl extends React.Component {
 
 					<View
 						style={{
-							margin: 8,
 							flexDirection: "row"
 						}}
 					>

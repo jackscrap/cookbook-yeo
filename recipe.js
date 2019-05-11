@@ -62,42 +62,42 @@ export default class Recipe extends React.Component {
 
 				<Hr />
 
+				{
+					this.state.recipe[this.state.i]
+					? (
+						<View>
+						<TouchableOpacity
+							onPress={
+								() => this.props.navigation.navigate(
+									"Edit",
+									{
+										navigation: this.props.navigation,
+										i: this.state.i
+									}
+								)
+							}
+						>
+							<Text
+								style={{
+									margin: 8,
+									padding: 8
+								}}
+							>
+								Edit
+							</Text>
+						</TouchableOpacity>
+
+						<Hr />
+					</View>
+				)
+				: <Text>...</Text>
+			}
+
         <ScrollView
 					style={{
 						height: 0
 					}}
 				>
-						{
-							this.state.recipe[this.state.i]
-							? (
-								<View>
-								<TouchableOpacity
-									onPress={
-										() => this.props.navigation.navigate(
-											"Edit",
-											{
-												navigation: this.props.navigation,
-												i: this.state.i
-											}
-										)
-									}
-								>
-									<Text
-										style={{
-											margin: 8,
-											padding: 8
-										}}
-									>
-										Edit
-									</Text>
-								</TouchableOpacity>
-
-								<Hr />
-							</View>
-						)
-						: <Text>...</Text>
-					}
-
           <View
             style={{
               padding: 8

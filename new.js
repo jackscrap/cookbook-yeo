@@ -15,6 +15,8 @@ import Hr from "./hr";
 import Ctrl from "./ctrl";
 import DogEar from "./dogEar";
 
+import style from "./style";
+
 import * as firebase from "firebase";
 
 export default class New extends React.Component {
@@ -131,7 +133,7 @@ export default class New extends React.Component {
 							placeholder="Title"
 							autoCapitalize="none"
 							style={
-								styles.textInput
+								style.txtInput
 							}
 							onChangeText={
 								title => this.setState({
@@ -156,7 +158,7 @@ export default class New extends React.Component {
 							placeholder="Notes"
 							autoCapitalize="none"
 							style={
-								styles.textInput
+								style.txtInput
 							}
 							onChangeText={
 								note => this.setState({
@@ -207,7 +209,7 @@ export default class New extends React.Component {
 												key={i}
 												placeholder="Ingredient"
 												style={
-													styles.textInput
+													style.txtInput
 												}
 												onChangeText={
 													(txt) => {
@@ -259,11 +261,7 @@ export default class New extends React.Component {
 								</Text>
 							</TouchableOpacity>
 
-							<View
-								style={{
-									margin: 8
-								}}
-							>
+							<View>
 								{
 									this.state.step.map((val, i) => {
 										return (
@@ -272,6 +270,7 @@ export default class New extends React.Component {
 											>
 												<Text
 													style={{
+														margin: 8,
 														fontSize: 40
 													}}
 												>
@@ -288,7 +287,7 @@ export default class New extends React.Component {
 														}
 													}
 													style={
-														styles.textInput
+														style.txtInput
 													}
 												>
 													{
@@ -304,7 +303,7 @@ export default class New extends React.Component {
 														}
 													}
 													style={
-														styles.textInput
+														style.txtInput
 													}
 												>
 													{
