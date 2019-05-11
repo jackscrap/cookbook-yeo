@@ -3,7 +3,6 @@ import {
 	createStackNavigator,
 	createAppContainer
 } from "react-navigation";
-// import Orientation from "react-native-orientation";
 
 import {
 	ScreenOrientation
@@ -43,7 +42,7 @@ const Cont = createAppContainer(Nav);
 
 export default class App extends React.Component {
 	componentDidMount() {
-		// ScreenOrientation.allowAsync(ScreenOrientation.Orientation.LANDSCAPE);
+		ScreenOrientation.allowAsync(ScreenOrientation.Orientation.ALL);
 	}
 
 	componentWillUnmount() {
