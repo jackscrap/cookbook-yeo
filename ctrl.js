@@ -70,8 +70,6 @@ export default class Ctrl extends React.Component {
 						</TouchableOpacity>
 					</View>
 
-					<Hr />
-
 					<View
 						style={{
 							margin: 8,

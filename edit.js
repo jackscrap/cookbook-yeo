@@ -33,8 +33,8 @@ export default class Edit extends React.Component {
 			note: "",
 			step: [
 				{
-					header: "",
-					inst: ""
+					title: "",
+					desc: ""
 				}
 			],
 
@@ -257,7 +257,7 @@ export default class Edit extends React.Component {
 											return (
 												<TextInput
 													key={i}
-													defaultValue={this.state.step[i]["cont"]}
+													defaultValue={this.state.ingredient[i]}
 													placeholder="Ingredient"
 													style={
 														styles.textInput
@@ -352,10 +352,10 @@ export default class Edit extends React.Component {
 
 													<TextInput
 														placeholder="Instructions"
-														defaultValue={this.state.step[i]["cont"]}
+														defaultValue={this.state.step[i]["desc"]}
 														onChangeText={
 															(txt) => {
-																this.state.step[i]["cont"] = txt;
+																this.state.step[i]["desc"] = txt;
 															}
 														}
 														style={

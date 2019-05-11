@@ -67,6 +67,37 @@ export default class Recipe extends React.Component {
 						height: 0
 					}}
 				>
+						{
+							this.state.recipe[this.state.i]
+							? (
+								<View>
+								<TouchableOpacity
+									onPress={
+										() => this.props.navigation.navigate(
+											"Edit",
+											{
+												navigation: this.props.navigation,
+												i: this.state.i
+											}
+										)
+									}
+								>
+									<Text
+										style={{
+											margin: 8,
+											padding: 8
+										}}
+									>
+										Edit
+									</Text>
+								</TouchableOpacity>
+
+								<Hr />
+							</View>
+						)
+						: <Text>...</Text>
+					}
+
           <View
             style={{
               padding: 8
@@ -77,27 +108,6 @@ export default class Recipe extends React.Component {
                 padding: 8
               }}
             >
-								{
-									this.state.recipe[this.state.i]
-									? (
-										<TouchableOpacity
-											onPress={
-												() => this.props.navigation.navigate(
-													"Edit",
-													{
-														navigation: this.props.navigation,
-														i: this.state.i
-													}
-												)
-											}
-										>
-											<Text>
-												Edit
-											</Text>
-										</TouchableOpacity>
-									)
-									: <Text>...</Text>
-								}
 
               <Text
                 style={{
@@ -144,20 +154,6 @@ export default class Recipe extends React.Component {
 									this.state.recipe[this.state.i] != undefined
 									? this.state.recipe[this.state.i].note
 									: "..."
-
-									// this.state.recipe[this.state.i] != undefined ? (
-									// 	this.state.recipe[this.state.i].note.map((item, k) => {
-									// 		return (
-									// 			<Text
-									// 				key={k}
-									// 			>
-									// 				{item}
-									// 			</Text>
-									// 		);
-									// 	})
-									// ) : (
-									// 	<Text>...</Text>
-									// )
 								}
 							</Text>
 						</View>

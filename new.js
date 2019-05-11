@@ -22,8 +22,10 @@ export default class New extends React.Component {
 		super(props);
 
 		this.state = {
-			title: "",
 			email: this.props.navigation.getParam("user", "...").email,
+			author: this.props.navigation.getParam("user", "...").displayName,
+
+			title: "",
 			ingredient: [
 				""
 			],
@@ -49,6 +51,7 @@ export default class New extends React.Component {
 		let i = firebase.database().ref().child("recipe").push(
 			{
 				"email": this.state.email,
+				"author": this.state.author,
 
 				"title": this.state.title,
 				"ingredient": this.state.ingredient,
@@ -297,7 +300,7 @@ export default class New extends React.Component {
 													placeholder="Instructions"
 													onChangeText={
 														(txt) => {
-															this.state.step[i]["cont"] = txt;
+															this.state.step[i]["desc"] = txt;
 														}
 													}
 													style={
